@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>灵蛇献瑞 · 甲辰呈祥</title>
+    <style>
+        :root {
+            --vermilion: #cb1b16;
+            --gold: #d4af37;
+            --ink: #2a201e;
+        }
+
+        body {
+            background: radial-gradient(circle at 50% 50%, #cb1b16, #8b0000, #2a201e);
+            font-family: '华文行楷', 'Microsoft YaHei', cursive;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+            position: relative;
+            overflow: hidden;
+            animation: bgFlow 10s ease-in-out infinite;
+        }
+
+        @keyframes bgFlow {
+            0% {
+                background-position: 0% 0%;
+            }
+            50% {
+                background-position: 100% 100%;
+            }
+            100% {
+                background-position: 0% 0%;
+            }
+        }
+
+        .sparkles, .fireworks {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .sparkle, .firework {
+            position: absolute;
+            border-radius: 50%;
+            pointer-events: none;
+            animation-timing-function: ease-in-out;
+            will-change: transform, opacity;
+        }
+
+        .sparkle {
+            width: 8px;
+            height: 8px;
+            background-color: rgba(255, 255, 255, 0.8);
+            animation: sparkleAnimation 6s infinite;
+        }
+
+        .firework {
+            width: 10px;
+            height: 10px;
+            background-color: rgba(255, 165, 0, 0.9);
+            animation: fireworkAnimation 2s infinite;
+        }
+
+        @keyframes sparkleAnimation {
+            0% { transform: translate(0, 0) scale(0.5); opacity: 1; }
+            50% { transform: translate(50vw, 100vh) scale(1); opacity: 0.5; }
+            100% { transform: translate(0, 0) scale(0.5); opacity: 0; }
+        }
+
+        @keyframes fireworkAnimation {
+            0% { transform: translate(0, 0) scale(0.5); opacity: 1; }
+            50% { transform: translate(20vw, -20vh) scale(1); opacity: 0.8; }
+            100% { transform: translate(0, 0) scale(0.2); opacity: 0; }
+        }
+
+        .container {
+            background: rgba(255, 255, 245, 0.12);
+            padding: 2rem 3rem;
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(8px);
+            max-width: 800px;
+            width: 90%;
+            text-align: center;
+            border: 2px solid rgba(212, 175, 55, 0.3);
+            position: relative;
+        }
+
+        .title {
+            font-size: 4rem;
+            color: transparent;
+            background: linear-gradient(45deg, var(--gold) 30%, #fff3b0);
+            -webkit-background-clip: text;
+            background-clip: text;
+            margin: 1.5rem 0;
+            letter-spacing: 4px;
+            text-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
+        }
+
+        #blessingText {
+            font-size: 2.5rem;
+            color: #fff3b0;
+            line-height: 1.8;
+            min-height: 200px;
+            padding: 2rem;
+            margin: 2rem 0;
+            border: 3px double rgba(212, 175, 55, 0.3);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        #blessingText.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        button {
+            background: linear-gradient(145deg, var(--gold) 40%, #ffec80);
+            border: none;
+            padding: 1.5rem 4rem;
+            font-size: 2rem;
+            border-radius: 50px;
+            cursor: pointer;
+            color: var(--ink);
+            font-family: inherit;
+            transition: 0.3s;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.5);
+        }
+
+        footer {
+            position: absolute;
+            bottom: 10px;
+            width: 100%;
+            text-align: center;
+            color: var(--gold);
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+
+        @media (max-width: 768px) {
+            .title {
+                font-size: 2.5rem;
+            }
+
+            #blessingText {
+                font-size: 1.5rem;
+                padding: 1rem;
+            }
+
+            button {
+                padding: 1rem 2rem;
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="sparkles"></div>
+    <div class="fireworks"></div>
+
+    <div class="container">
+        <h1 class="title">灵蛇献瑞 · 甲辰呈祥</h1>
+        <div id="blessingText">点击下方按钮抽取祝福语！</div>
+        <button onclick="drawBlessing()">🧧 恭 请 福 语 🧧</button>
+    </div>
+
+    <footer>He Zeus. © 2025 - 灵蛇献瑞 🌟</footer>
+
+    <script>
+        const blessings = [
+            "🐍 福启新岁，万事顺遂。",
+            "🏮 家人闲坐，灯火可亲。",
+            "✨ 新年伊始，喜乐安宁。",
+            "🌸 良辰吉日时时有，锦瑟年华岁岁拥。",
+            "🎉 旧岁千般皆如意，新年万事定称心。",
+            "🌟 岁月常新，美好常在。",
+            "🏠 纵使人潮汹涌，光阴似箭，愿所有的驰骋，最终都奔向团圆。",
+            "📖 岁序更替，华章日新。",
+            "❤️ 就地过年，情深不减，心在一起，就是新年。",
+            "🍀 新年好运，齐头并进。",
+            "🎊 门上的福字贴倒了，家里的亲人都到了。",
+            "🕊️ 四时平安，万物可爱，万事尽可期待。",
+            "🌌 长路漫漫，终有归途。这路遥马急的人间，你我平安喜乐就好。",
+            "🌠 明灯三千，只愿你平安喜乐，岁岁年年。",
+            "🌞 日出有盼 日落有念 所有美好 皆如你所愿。",
+            "💰 新年快乐，招财进你。",
+            "🌎 天地风霜尽，乾坤气象和。",
+            "🌺 历添新岁月，春满旧山河。",
+            "🎇 愿除旧妄生新意，端与新年日日新。",
+            "🏵️ 交年换新岁，长保身荣贵。",
+            "🧨 愿新春以后，吉吉利利，百事都如意。",
+            "🎁 岁岁年年，共欢同乐，嘉庆与时新。",
+            "🌈 一愿世清平，二愿身强健，三愿临老头，数与君相见。",
+            "🪷 从今诸事愿、胜如旧。",
+            "💪 人生强健，喜一年入手。",
+            "🧿 愿保兹善，千载为常。",
+            "😊 欢笑尽娱，乐哉未央。",
+            "🎵 为当欢乐，心得所喜。",
+            "🌟 愿得长如此，年年物候新。",
+            "🥂 从教一岁大家添，但只要、大家明年强健。",
+            "🎭 大家沉醉对芳筵，愿新年，胜旧年。"
+        ];
+
+        function createSparkles(className, count) {
+            const container = document.querySelector(`.${className}`);
+            for (let i = 0; i < count; i++) {
+                const element = document.createElement('div');
+                element.className = className.slice(0, -1); // 移除 's'，例如 'sparkles' -> 'sparkle'
+                element.style.top = `${Math.random() * 100}%`;
+                element.style.left = `${Math.random() * 100}%`;
+                element.style.animationDelay = `${Math.random() * 6}s`;
+                container.appendChild(element);
+            }
+        }
+
+        function drawBlessing() {
+            const box = document.getElementById('blessingText');
+            box.classList.remove('show');
+
+            setTimeout(() => {
+                box.textContent = blessings[Math.floor(Math.random() * blessings.length)];
+                box.classList.add('show');
+            }, 300);
+        }
+
+        // 初始化烟花和星光
+        createSparkles('sparkles', 20);
+        createSparkles('fireworks', 10);
+    </script>
+</body>
+</html>
